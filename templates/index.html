@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>LLAMA 4 Based Football Player Detection</title>
+  <title>Face-The-Pitch: AI Player Detector</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
@@ -12,39 +12,41 @@
     }
   </style>
 </head>
-<body class="bg-gradient-to-br from-slate-900 to-slate-800 min-h-screen text-white flex items-center justify-center p-4">
-  <div class="w-full max-w-4xl bg-slate-950/90 rounded-2xl shadow-2xl p-8 border border-slate-800">
+<body class="bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#14532d] min-h-screen text-white flex items-center justify-center p-4">
+  <div class="w-full max-w-4xl bg-[#0c1a2c]/80 rounded-2xl shadow-[0_0_30px_rgba(34,197,94,0.2)] p-8 border border-[#1f2937]">
 
-    <h1 class="text-3xl md:text-4xl font-bold text-center mb-6 text-green-400">⚽ LLAMA 4 Based Football Player Detection</h1>
-    <p class="text-center text-gray-300 mb-8">Upload an image of a football player to detect and get details using AI.</p>
+    <h1 class="text-3xl md:text-4xl font-bold text-center mb-6 text-green-400 drop-shadow-sm">
+      ⚽ Face-The-Pitch: Player Detector
+    </h1>
+    <p class="text-center text-gray-300 mb-8 text-sm md:text-base">Upload an image of a football player and let our AI reveal their identity, club, and glory.</p>
 
     <form method="POST" enctype="multipart/form-data" class="flex flex-col items-center space-y-4">
-      <input type="file" name="image" accept="image/*" required class="bg-slate-800 text-gray-200 p-2 rounded-lg border border-slate-700 focus:outline-none focus:ring-2 focus:ring-green-500">
-      <button type="submit" class="bg-green-500 hover:bg-green-600 text-black font-semibold px-6 py-2 rounded-lg transition duration-300">
-        Upload & Detect
+      <input type="file" name="image" accept="image/*" required class="bg-slate-800 text-gray-200 p-2 rounded-lg border border-slate-700 focus:outline-none focus:ring-2 focus:ring-green-500 w-full max-w-sm">
+      <button type="submit" class="bg-green-500 hover:bg-green-600 text-black font-semibold px-6 py-2 rounded-lg transition duration-300 shadow-md hover:shadow-green-400">
+        🚀 Upload & Detect
       </button>
     </form>
 
     {% if result_img %}
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10 items-start">
-        <div class="bg-slate-900 p-4 rounded-xl border border-slate-700 shadow-md">
-          <h2 class="text-xl font-semibold text-green-300 mb-4">Detected Player</h2>
-          <img src="{{ url_for('static', filename='uploads/' + result_img) }}" class="rounded-lg shadow-lg">
+        <div class="bg-[#0f172a] p-4 rounded-xl border border-slate-700 shadow-lg">
+          <h2 class="text-xl font-semibold text-green-300 mb-4">🎯 Detected Player</h2>
+          <img src="{{ url_for('static', filename='uploads/' + result_img) }}" class="rounded-lg shadow-md border border-green-600">
         </div>
 
-        <div class="bg-slate-900 p-4 rounded-xl border border-slate-700 shadow-md">
-          <h2 class="text-xl font-semibold text-green-300 mb-4">Player Info</h2>
+        <div class="bg-[#0f172a] p-4 rounded-xl border border-slate-700 shadow-lg">
+          <h2 class="text-xl font-semibold text-green-300 mb-4">📋 Player Info</h2>
           <pre class="whitespace-pre-wrap text-gray-300">{{ player_info }}</pre>
         </div>
       </div>
     {% elif player_info %}
-      <div class="mt-6 bg-red-600/80 p-4 rounded-xl text-white font-semibold text-center">
+      <div class="mt-6 bg-red-600/80 p-4 rounded-xl text-white font-semibold text-center shadow">
         {{ player_info }}
       </div>
     {% endif %}
 
-    <div class="mt-10 text-center text-sm text-gray-500">
-      Built with ❤️ using Flask, OpenCV & Groq API
+    <div class="mt-10 text-center text-xs text-gray-500 italic">
+      Built with ❤️ using Flask, OpenCV & Groq
     </div>
   </div>
 </body>

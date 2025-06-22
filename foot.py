@@ -6,7 +6,7 @@ import numpy as np
 import os 
 
 GROQ_API_KEY = ""
-GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
+GROQ_API_URL = ""
 
 def detect_faces(image_path):
     img = cv2.imread(image_path)
@@ -54,7 +54,7 @@ def get_player_info(image_path):
                                 - **Nationality**: (Country of origin)
                                 - **Club**: (Current club name)
                                 - **Position**: (Primary playing position)
-                                - **Achievements**: (Notable titles or awards, max 2-3)
+                                - **Achievements**: (Notable titles or awards, max 3-4)
 
                                 If multiple players are detected, return only the **most famous one**.
                                 If no player is recognized, respond with "Unknown".
