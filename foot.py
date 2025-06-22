@@ -5,7 +5,7 @@ import base64
 import numpy as np
 import os 
 
-GROQ_API_KEY = "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"
+GROQ_API_KEY = ""
 GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
 
 def detect_faces(image_path):
