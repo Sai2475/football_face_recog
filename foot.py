@@ -5,8 +5,8 @@ import base64
 import numpy as np
 import os 
 
-GROQ_API_KEY = ""
-GROQ_API_KEY = ""
+GROQ_API_KEY = "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"
+GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
 
 def detect_faces(image_path):
     img = cv2.imread(image_path)
@@ -31,7 +31,7 @@ def draw_faces(image, faces , player_name):
 
 def get_player_info(image_path):
     with open(image_path,"rb") as img_file:
-       img_base64 =  base64.b64encode(img_file.read().decode())
+       img_base64 = base64.b64encode(img_file.read()).decode('utf-8')
 
     headers = {
         "Authorization" : f"Bearer {GROQ_API_KEY}",
@@ -73,4 +73,32 @@ def get_player_info(image_path):
         "max_tokens": 1024
     }
 
+    response = requests.post(GROQ_API_URL, headers=headers, json=payload)
+    if response.status_code == 200:
+        result = response.json()
+        return result['choices'][0]['message']['content']
+    else:
+        print("API error", response.text)
+        return "UNKNOWN"
+def main():
+    image_path = "ney.jpg"
+    if not os.path.exists(image_path):
+        print(f"Image Not Found: {image_path}")
+        return
     
+    faces, img_rgb = detect_faces(image_path)
+    if faces:
+        player_info = get_player_info(image_path)
+        print(player_info)
+
+        player_name = player_info.split("\n")[0].replace("**Full Name**: ", "").strip()
+        result_img = draw_faces(img_rgb, faces, player_name)
+
+        out_path = "output_detected.jpg"
+        cv2.imwrite(out_path, cv2.cvtColor(result_img, cv2.COLOR_RGB2BGR))
+        print(f"Output saved to {out_path}")
+    else:
+        print("No faces detected . Try another image.")
+
+if __name__ == "__main__":
+    main()
